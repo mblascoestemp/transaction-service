@@ -110,11 +110,6 @@ The get operation is O(1) because the map is fixed. Also because the map gets fi
 
 This approach might have problems when dealing with burst of POSTs with a fixed frequency that could lead to a delay of stats being inserted into the Time Bucket.
 Also, for the more precision you define, the higher the memory will be used for the map, and it will take longer for the statistics to be calculated. 
-
-I also attach a Jmeter profile that I have been using to test the behaviour of the application.
-Using this application in combination of jVisualVM will give us the ability to spot unwanted behaviour
-like memory leaks, not achieving the expected O(1) specifications.
-Regretfully i did not have the time to make a thoughtful profile of the application worth of presenting.
     
 I also kept in the code my previous implementation which was based on keeping an store of transactions and when the statistics
 would be requested the application will calculate the stats from the transaction within the time frame and clean up the rest.
@@ -161,6 +156,10 @@ Log levels are set up on the logback-test.xml file.
 
 For checking the behaviour with concurrent users I set up a [jmeter profile](./JMETER%20Profile.jmx).
 It set up a thread group of users that will post transactions with a random amount and current time of the request as timestamp.
+Using this application in combination of jVisualVM will give us the ability to spot unwanted behaviour
+like memory leaks, not achieving the expected O(1) specifications.
+Regretfully i did not have the time to make a thoughtful profile of the application worth of presenting.
+
 A second thread group of users will request the statistics.
 Included a couple of graph listeners to represent the response time.
 
